@@ -16,6 +16,12 @@ import { AppliedAccessFilters } from "./access";
 import { AppliedDateFilters } from "./date";
 import { AppliedMembersFilters } from "./members";
 import { AppliedProjectDisplayFilters } from "./project-display-filters";
+// GIE
+import {
+  AppliedProjectCharacteristicFilters,
+  PROJECT_CHARACTERISTIC_FILTER_KEYS,
+  ProjectCharacteristicFilterLabel,
+} from "../gie/applied-filters";
 
 type Props = {
   appliedFilters: TProjectFilters;
@@ -61,7 +67,20 @@ export function ProjectAppliedFiltersList(props: Props) {
 
           return (
             <Tag key={filterKey}>
-              <span className="text-11 text-tertiary">{replaceUnderscoreIfSnakeCase(filterKey)}</span>
+              {PROJECT_CHARACTERISTIC_FILTER_KEYS.includes(filterKey) ? (
+                <ProjectCharacteristicFilterLabel filterKey={filterKey} />
+              ) : (
+                <span className="text-11 text-tertiary">{replaceUnderscoreIfSnakeCase(filterKey)}</span>
+              )}
+              {/* GIE: caractéristiques des projets */}
+              {PROJECT_CHARACTERISTIC_FILTER_KEYS.includes(filterKey) && (
+                <AppliedProjectCharacteristicFilters
+                  filterKey={filterKey}
+                  editable={isEditingAllowed}
+                  handleRemove={(val) => handleRemoveFilter(filterKey, val)}
+                  values={value}
+                />
+              )}
               {filterKey === "access" && (
                 <AppliedAccessFilters
                   editable={isEditingAllowed}

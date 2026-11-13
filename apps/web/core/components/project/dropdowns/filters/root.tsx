@@ -18,6 +18,8 @@ import { FilterAccess } from "./access";
 import { FilterCreatedDate } from "./created-at";
 import { FilterLead } from "./lead";
 import { FilterMembers } from "./members";
+// GIE
+import { ProjectCharacteristicsFilters } from "../../gie/filters";
 
 type Props = {
   displayFilters: TProjectDisplayFilters;
@@ -104,6 +106,13 @@ export const ProjectFiltersSelection = observer(function ProjectFiltersSelection
             searchQuery={filtersSearchQuery}
           />
         </div>
+
+        {/* GIE: caractéristiques des projets */}
+        <ProjectCharacteristicsFilters
+          filters={filters}
+          handleFiltersUpdate={handleFiltersUpdate}
+          searchQuery={filtersSearchQuery}
+        />
       </div>
     </div>
   );

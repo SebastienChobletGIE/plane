@@ -19,6 +19,11 @@ import { useUserPermissions } from "@/hooks/store/user";
 import type { Route } from "./+types/page";
 import { GeneralProjectSettingsHeader } from "./header";
 import { GeneralProjectSettingsControlSection } from "@/components/project/settings/control-section";
+// GIE
+import {
+  ProjectCharacteristicsActivity,
+  ProjectCharacteristicsSection,
+} from "@/components/project/gie/project-section";
 
 function ProjectSettingsPage({ params }: Route.ComponentProps) {
   // router
@@ -45,8 +50,11 @@ function ProjectSettingsPage({ params }: Route.ComponentProps) {
         ) : (
           <ProjectDetailsFormLoader />
         )}
-        {isAdmin && <GeneralProjectSettingsControlSection projectId={projectId} />}
       </div>
+      {/* GIE: caractéristiques modifiables par tout membre du projet, hors de la zone grisée réservée aux admins */}
+      {currentProjectDetails && <ProjectCharacteristicsSection workspaceSlug={workspaceSlug} projectId={projectId} />}
+      {isAdmin && <GeneralProjectSettingsControlSection projectId={projectId} />}
+      {currentProjectDetails && <ProjectCharacteristicsActivity workspaceSlug={workspaceSlug} projectId={projectId} />}
     </SettingsContentWrapper>
   );
 }

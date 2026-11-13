@@ -11,21 +11,27 @@ import type { IProjectStore } from "./project.store";
 import { ProjectStore } from "./project.store";
 import type { IProjectFilterStore } from "./project_filter.store";
 import { ProjectFilterStore } from "./project_filter.store";
+// GIE
+import type { IProjectCharacteristicsStore } from "./gie-characteristics.store";
+import { ProjectCharacteristicsStore } from "./gie-characteristics.store";
 
 export interface IProjectRootStore {
   project: IProjectStore;
   projectFilter: IProjectFilterStore;
   publish: IProjectPublishStore;
+  characteristics: IProjectCharacteristicsStore;
 }
 
 export class ProjectRootStore {
   project: IProjectStore;
   projectFilter: IProjectFilterStore;
   publish: IProjectPublishStore;
+  characteristics: IProjectCharacteristicsStore;
 
   constructor(_root: CoreRootStore) {
     this.project = new ProjectStore(_root);
     this.projectFilter = new ProjectFilterStore(_root);
     this.publish = new ProjectPublishStore(this);
+    this.characteristics = new ProjectCharacteristicsStore(_root);
   }
 }

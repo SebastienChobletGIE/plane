@@ -98,6 +98,16 @@ class Project(BaseModel):
     is_time_tracking_enabled = models.BooleanField(default=False)
     # GIE: active la saisie des charges estimée / réalisée
     is_effort_enabled = models.BooleanField(default=False)
+    # GIE: caractéristiques du projet (cf. gie_project.py)
+    project_status = models.ForeignKey(
+        "db.ProjectStatus", on_delete=models.SET_NULL, null=True, blank=True, related_name="projects"
+    )
+    project_priority = models.ForeignKey(
+        "db.ProjectPriority", on_delete=models.SET_NULL, null=True, blank=True, related_name="projects"
+    )
+    estimated_delivery_date = models.DateField(null=True, blank=True)
+    is_copil = models.BooleanField(default=False)
+    remaining_work = models.TextField(blank=True, default="")
     is_issue_type_enabled = models.BooleanField(default=False)
     guest_view_all_features = models.BooleanField(default=False)
     cover_image = models.TextField(blank=True, null=True)

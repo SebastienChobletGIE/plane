@@ -33,6 +33,8 @@ export * from "./page";
 export * from "./payment";
 export * from "./profile";
 export * from "./project";
+// GIE
+export * from "./gie-project";
 export * from "./rich-filters";
 export * from "./settings";
 export * from "./sidebar-favorites";

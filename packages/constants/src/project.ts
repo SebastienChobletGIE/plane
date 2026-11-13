@@ -86,6 +86,12 @@ export const PROJECT_ORDER_BY_OPTIONS: {
     key: "members_length",
     i18n_label: "workspace_projects.sort.members_length",
   },
+  // GIE: tris sur les caractéristiques
+  { key: "project_status", i18n_label: "gie_project.fields.project_status" },
+  { key: "project_priority", i18n_label: "gie_project.fields.project_priority" },
+  { key: "estimated_delivery_date", i18n_label: "gie_project.fields.estimated_delivery_date" },
+  { key: "is_copil", i18n_label: "gie_project.fields.is_copil" },
+  { key: "progress", i18n_label: "gie_project.fields.progress" },
 ];
 
 export const PROJECT_DISPLAY_FILTER_OPTIONS: {

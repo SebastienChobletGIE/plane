@@ -34,7 +34,16 @@ class ProjectSerializer(BaseSerializer):
     class Meta:
         model = Project
         fields = "__all__"
-        read_only_fields = ["workspace", "deleted_at"]
+        # GIE: les caractéristiques se modifient via /characteristics/ (historique des modifications)
+        read_only_fields = [
+            "workspace",
+            "deleted_at",
+            "project_status",
+            "project_priority",
+            "estimated_delivery_date",
+            "is_copil",
+            "remaining_work",
+        ]
 
     def validate_name(self, name):
         project_id = self.instance.id if self.instance else None
@@ -121,6 +130,9 @@ class ProjectListSerializer(DynamicBaseSerializer):
     cover_image_url = serializers.CharField(read_only=True)
     inbox_view = serializers.BooleanField(read_only=True, source="intake_view")
     next_work_item_sequence = serializers.SerializerMethodField()
+    # GIE: avancement (work items terminés / total hors annulés)
+    progress_total_count = serializers.IntegerField(read_only=True)
+    progress_completed_count = serializers.IntegerField(read_only=True)
 
     def get_members(self, obj):
         project_members = getattr(obj, "members_list", None)

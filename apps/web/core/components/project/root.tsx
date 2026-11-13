@@ -17,6 +17,9 @@ import { PageHead } from "@/components/core/page-title";
 import { useProject } from "@/hooks/store/use-project";
 import { useProjectFilter } from "@/hooks/store/use-project-filter";
 import { useWorkspace } from "@/hooks/store/use-workspace";
+// GIE
+import useSWR from "swr";
+import { useProjectCharacteristics } from "@/hooks/store/use-project-characteristics";
 // local imports
 import { ProjectAppliedFiltersList } from "./applied-filters";
 import { ProjectCardList } from "./card-list";
@@ -77,6 +80,23 @@ export const ProjectRoot = observer(function ProjectRoot() {
   useEffect(() => {
     updateDisplayFilters(workspaceSlug.toString(), { archived_projects: isArchived });
   }, [pathname]);
+
+  // GIE: à chaque retour sur la page, recharge les projets pour mettre à jour l'avancement
+  // (le premier chargement est fait par la page elle-même)
+  const { fetchProjects, fetchStatus } = useProject();
+  useEffect(() => {
+    if (workspaceSlug && fetchStatus === "complete") void fetchProjects(workspaceSlug.toString());
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+  }, [workspaceSlug]);
+
+  // GIE: statuts et priorités de projet (affichage, filtres, tris)
+  const characteristics = useProjectCharacteristics();
+  useSWR(workspaceSlug ? `GIE_PROJECT_STATUSES_${workspaceSlug}` : null, () =>
+    characteristics.fetchStatuses(workspaceSlug.toString())
+  );
+  useSWR(workspaceSlug ? `GIE_PROJECT_PRIORITIES_${workspaceSlug}` : null, () =>
+    characteristics.fetchPriorities(workspaceSlug.toString())
+  );
 
   return (
     <>

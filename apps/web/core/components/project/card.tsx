@@ -33,6 +33,8 @@ import { CoverImage } from "@/components/common/cover-image";
 import { DeleteProjectModal } from "./delete-project-modal";
 import { JoinProjectModal } from "./join-project-modal";
 import { ArchiveRestoreProjectModal } from "./archive-restore-modal";
+// GIE
+import { ProjectCardCharacteristics } from "./gie/card-characteristics";
 
 type Props = {
   project: IProject;
@@ -265,6 +267,9 @@ export const ProjectCard = observer(function ProjectCard(props: Props) {
             )}
           </div>
         </div>
+
+        {/* GIE: caractéristiques du projet */}
+        <ProjectCardCharacteristics project={project} workspaceSlug={workspaceSlug.toString()} />
 
         <div
           className={cn("flex h-[104px] w-full flex-col justify-between rounded-b-sm p-4", {

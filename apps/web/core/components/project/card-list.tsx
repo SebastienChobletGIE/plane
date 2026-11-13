@@ -20,6 +20,8 @@ import { useProjectFilter } from "@/hooks/store/use-project-filter";
 import { useUserPermissions } from "@/hooks/store/user";
 // local imports
 import { ProjectCard } from "./card";
+// GIE
+import { ProjectTable } from "./gie/table";
 
 type TProjectCardListProps = {
   totalProjectIds?: string[];
@@ -99,6 +101,9 @@ export const ProjectCardList = observer(function ProjectCardList(props: TProject
         assetClassName="size-40"
       />
     );
+
+  // GIE: disposition tableau
+  if (currentWorkspaceDisplayFilters?.layout === "table") return <ProjectTable projectIds={filteredProjectIds} />;
 
   return (
     <ContentWrapper>

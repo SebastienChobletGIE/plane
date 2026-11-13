@@ -43,6 +43,9 @@ from plane.db.models.intake import IntakeIssueStatus
 from plane.utils.host import base_host
 from plane.utils.order_queryset import PROJECT_ORDER_BY_ALLOWLIST, sanitize_order_by
 
+# GIE: caractéristiques des projets
+from plane.app.views.gie_project import annotate_project_progress, get_default_project_status
+
 
 class ProjectViewSet(BaseViewSet):
     serializer_class = ProjectListSerializer
@@ -57,8 +60,7 @@ class ProjectViewSet(BaseViewSet):
             workspace__slug=self.kwargs.get("slug"),
         ).values("sort_order")
         return self.filter_queryset(
-            super()
-            .get_queryset()
+            annotate_project_progress(super().get_queryset())
             .filter(workspace__slug=self.kwargs.get("slug"))
             .select_related("workspace", "workspace__owner", "default_assignee", "project_lead")
             .annotate(
@@ -261,7 +263,8 @@ class ProjectViewSet(BaseViewSet):
 
         serializer = ProjectSerializer(data={**request.data}, context={"workspace_id": workspace.id})
         if serializer.is_valid():
-            serializer.save()
+            # GIE: statut de projet par défaut de l'espace de travail
+            serializer.save(project_status=get_default_project_status(workspace))
 
             # Add the user as Administrator to the project
             _ = ProjectMember.objects.create(

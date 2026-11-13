@@ -33,6 +33,14 @@ export interface IPartialProject {
   guest_view_all_features?: boolean;
   // GIE: saisie des charges estimée / réalisée
   is_effort_enabled?: boolean;
+  // GIE: caractéristiques du projet
+  project_status?: string | null;
+  project_priority?: string | null;
+  estimated_delivery_date?: string | null;
+  is_copil?: boolean;
+  remaining_work?: string;
+  progress_total_count?: number;
+  progress_completed_count?: number;
   project_lead?: IUserLite | string | null;
   network?: number;
   // Timestamps
