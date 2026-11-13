@@ -1,0 +1,94 @@
+{
+  "gie_project": {
+    "fields": {
+      "project_status": "Project status",
+      "project_priority": "Priority",
+      "estimated_delivery_date": "Estimated delivery date",
+      "is_copil": "COPIL project",
+      "progress": "Progress",
+      "remaining_work": "Remaining work"
+    },
+    "status_groups": {
+      "backlog": "Backlog",
+      "unstarted": "Unstarted",
+      "started": "Started",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "filters": {
+      "delivery": {
+        "overdue": "Overdue",
+        "next_7_days": "Within 7 days",
+        "next_30_days": "Within 30 days",
+        "later": "In more than 30 days",
+        "none": "No date",
+        "custom": "Custom"
+      }
+    },
+    "layout": {
+      "title": "Layout",
+      "gallery": "Cards",
+      "table": "Table"
+    },
+    "display": {
+      "title": "Display",
+      "properties": "Displayed fields"
+    },
+    "table": {
+      "project": "Project"
+    },
+    "settings": {
+      "title": "Project characteristics",
+      "description": "Statuses and priorities shared by all projects of the workspace.",
+      "statuses": {
+        "title": "Project statuses",
+        "description": "New projects get the default status.",
+        "add": "Add status",
+        "default": "Default",
+        "mark_default": "Set as default"
+      },
+      "priorities": {
+        "title": "Project priorities",
+        "description": "The first priority in the list is the highest.",
+        "add": "Add priority",
+        "empty": "No priority yet."
+      },
+      "form": {
+        "name": "Name",
+        "description": "Description",
+        "color": "Color",
+        "group": "Group"
+      },
+      "move_up": "Move up",
+      "move_down": "Move down",
+      "delete_confirm": "Delete \"{name}\"?",
+      "errors": {
+        "name_required": "Name is required.",
+        "name_taken": "This name is already used.",
+        "delete_used": "Cannot delete: used by at least one project.",
+        "delete_default": "The default status cannot be deleted.",
+        "generic": "Something went wrong. Please try again."
+      }
+    },
+    "project_section": {
+      "title": "Characteristics",
+      "description": "Values of this project. Any project member can edit them.",
+      "select_date": "Select a date",
+      "remaining_work_placeholder": "Describe what remains to be done on the project",
+      "progress_detail": "{completed} of {total} work items completed (cancelled excluded)",
+      "saved": "Saved",
+      "save": "Save"
+    },
+    "activity": {
+      "title": "Activity",
+      "empty": "No change yet.",
+      "set": "{actor} set \"{field}\" to {value}",
+      "removed": "{actor} removed \"{field}\"",
+      "previous": "(previously {value})",
+      "unknown_actor": "A user"
+    }
+  }
+}

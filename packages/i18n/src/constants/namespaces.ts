@@ -33,6 +33,8 @@ export const NAMESPACES = [
   "workflow",
   "workspace",
   "workspace-settings",
+  // GIE
+  "gie",
 ] as const;
 
 export type TNamespace = (typeof NAMESPACES)[number];

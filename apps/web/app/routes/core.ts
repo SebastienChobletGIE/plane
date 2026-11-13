@@ -282,6 +282,11 @@ export const coreRoutes: RouteConfigEntry[] = [
             ":workspaceSlug/settings/webhooks/:webhookId",
             "./(all)/[workspaceSlug]/(settings)/settings/(workspace)/webhooks/[webhookId]/page.tsx"
           ),
+          // GIE: caractéristiques des projets
+          route(
+            ":workspaceSlug/settings/project-characteristics",
+            "./(all)/[workspaceSlug]/(settings)/settings/(workspace)/project-characteristics/page.tsx"
+          ),
         ]),
 
         // --------------------------------------------------------------------

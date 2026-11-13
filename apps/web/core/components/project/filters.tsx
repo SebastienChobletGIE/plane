@@ -20,6 +20,8 @@ import { useProjectFilter } from "@/hooks/store/use-project-filter";
 // local imports
 import { ProjectFiltersSelection } from "./dropdowns/filters";
 import { ProjectOrderByDropdown } from "./dropdowns/order-by";
+// GIE
+import { ProjectDisplayDropdown } from "./gie/display-dropdown";
 
 type Props = {
   filterMenuButton?: React.ReactNode;
@@ -102,6 +104,10 @@ const HeaderFilters = observer(function HeaderFilters({
             memberIds={workspaceMemberIds ?? undefined}
           />
         </FiltersDropdown>
+      </div>
+      {/* GIE: disposition et champs affichés */}
+      <div className={cn(filterClassname)}>
+        <ProjectDisplayDropdown />
       </div>
     </div>
   );

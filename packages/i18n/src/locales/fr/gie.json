@@ -1,0 +1,94 @@
+{
+  "gie_project": {
+    "fields": {
+      "project_status": "Statut du projet",
+      "project_priority": "Priorité",
+      "estimated_delivery_date": "Date de livraison estimée",
+      "is_copil": "Projet COPIL",
+      "progress": "Avancement",
+      "remaining_work": "Reste à faire"
+    },
+    "status_groups": {
+      "backlog": "Backlog",
+      "unstarted": "Non commencé",
+      "started": "Commencé",
+      "completed": "Terminé",
+      "cancelled": "Annulé"
+    },
+    "none": "Aucun",
+    "yes": "Oui",
+    "no": "Non",
+    "filters": {
+      "delivery": {
+        "overdue": "En retard",
+        "next_7_days": "Dans les 7 jours",
+        "next_30_days": "Dans les 30 jours",
+        "later": "Dans plus de 30 jours",
+        "none": "Sans date",
+        "custom": "Personnalisée"
+      }
+    },
+    "layout": {
+      "title": "Disposition",
+      "gallery": "Cartes",
+      "table": "Tableau"
+    },
+    "display": {
+      "title": "Affichage",
+      "properties": "Champs affichés"
+    },
+    "table": {
+      "project": "Projet"
+    },
+    "settings": {
+      "title": "Caractéristiques des projets",
+      "description": "Statuts et priorités communs à tous les projets de l'espace de travail.",
+      "statuses": {
+        "title": "Statuts de projet",
+        "description": "Les nouveaux projets reçoivent le statut par défaut.",
+        "add": "Ajouter un statut",
+        "default": "Par défaut",
+        "mark_default": "Définir par défaut"
+      },
+      "priorities": {
+        "title": "Priorités de projet",
+        "description": "La première priorité de la liste est la plus prioritaire.",
+        "add": "Ajouter une priorité",
+        "empty": "Aucune priorité pour l'instant."
+      },
+      "form": {
+        "name": "Nom",
+        "description": "Description",
+        "color": "Couleur",
+        "group": "Groupe"
+      },
+      "move_up": "Monter",
+      "move_down": "Descendre",
+      "delete_confirm": "Supprimer « {name} » ?",
+      "errors": {
+        "name_required": "Le nom est obligatoire.",
+        "name_taken": "Ce nom est déjà utilisé.",
+        "delete_used": "Suppression impossible : utilisé par au moins un projet.",
+        "delete_default": "Le statut par défaut ne peut pas être supprimé.",
+        "generic": "Une erreur est survenue. Veuillez réessayer."
+      }
+    },
+    "project_section": {
+      "title": "Caractéristiques",
+      "description": "Valeurs de ce projet, modifiables par tout membre du projet.",
+      "select_date": "Choisir une date",
+      "remaining_work_placeholder": "Décrivez ce qu'il reste à faire sur le projet",
+      "progress_detail": "{completed} work item(s) terminé(s) sur {total} (annulés exclus)",
+      "saved": "Enregistré",
+      "save": "Enregistrer"
+    },
+    "activity": {
+      "title": "Activité",
+      "empty": "Aucune modification pour l'instant.",
+      "set": "{actor} a défini « {field} » à {value}",
+      "removed": "{actor} a retiré « {field} »",
+      "previous": "(auparavant {value})",
+      "unknown_actor": "Un utilisateur"
+    }
+  }
+}

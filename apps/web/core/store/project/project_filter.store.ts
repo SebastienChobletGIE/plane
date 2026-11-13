@@ -12,6 +12,39 @@ import type { TProjectDisplayFilters, TProjectFilters, TProjectAppliedDisplayFil
 // store
 import type { CoreRootStore } from "../root.store";
 
+// GIE: disposition (cartes / tableau) et champs affichés sur la page des projets, mémorisés par navigateur
+const PROJECT_DISPLAY_STORAGE_KEY = "gie_projects_display";
+const DEFAULT_DISPLAY_PROPERTIES: TProjectDisplayFilters["display_properties"] = {
+  project_status: true,
+  project_priority: true,
+  estimated_delivery_date: true,
+  is_copil: true,
+  progress: true,
+  remaining_work: true,
+};
+
+const readStoredProjectDisplay = (
+  workspaceSlug: string
+): Pick<TProjectDisplayFilters, "layout" | "display_properties"> => {
+  try {
+    const raw = window.localStorage.getItem(`${PROJECT_DISPLAY_STORAGE_KEY}_${workspaceSlug}`);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+};
+
+const writeStoredProjectDisplay = (
+  workspaceSlug: string,
+  value: Pick<TProjectDisplayFilters, "layout" | "display_properties">
+) => {
+  try {
+    window.localStorage.setItem(`${PROJECT_DISPLAY_STORAGE_KEY}_${workspaceSlug}`, JSON.stringify(value));
+  } catch {
+    // stockage indisponible : la préférence n'est simplement pas mémorisée
+  }
+};
+
 export interface IProjectFilterStore {
   // observables
   displayFilters: Record<string, TProjectDisplayFilters>;
@@ -121,9 +154,14 @@ export class ProjectFilterStore implements IProjectFilterStore {
    */
   initWorkspaceFilters = (workspaceSlug: string) => {
     const displayFilters = this.getDisplayFiltersByWorkspaceSlug(workspaceSlug);
+    // GIE: disposition et champs affichés mémorisés dans le navigateur
+    const stored = readStoredProjectDisplay(workspaceSlug);
     runInAction(() => {
       this.displayFilters[workspaceSlug] = {
         order_by: displayFilters?.order_by || "created_at",
+        layout: displayFilters?.layout ?? stored.layout ?? "gallery",
+        display_properties:
+          displayFilters?.display_properties ?? stored.display_properties ?? DEFAULT_DISPLAY_PROPERTIES,
       };
       this.filters[workspaceSlug] = this.filters[workspaceSlug] ?? {};
     });
@@ -140,6 +178,14 @@ export class ProjectFilterStore implements IProjectFilterStore {
         set(this.displayFilters, [workspaceSlug, key], displayFilters[key as keyof TProjectDisplayFilters]);
       });
     });
+    // GIE: mémorise la disposition et les champs affichés
+    if ("layout" in displayFilters || "display_properties" in displayFilters) {
+      const current = this.displayFilters[workspaceSlug];
+      writeStoredProjectDisplay(workspaceSlug, {
+        layout: current?.layout,
+        display_properties: current?.display_properties,
+      });
+    }
   };
 
   /**

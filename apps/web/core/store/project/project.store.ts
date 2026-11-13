@@ -11,6 +11,13 @@ import { computedFn } from "mobx-utils";
 import type { TFetchStatus, TLoader, TProjectAnalyticsCount, TProjectAnalyticsCountParams } from "@plane/types";
 // helpers
 import { orderProjects, shouldFilterProject } from "@plane/utils";
+// GIE
+import { PROJECT_STATUS_GROUPS } from "@plane/constants";
+import {
+  isCharacteristicOrderBy,
+  orderProjectsByCharacteristics,
+  shouldFilterProjectByCharacteristics,
+} from "@/helpers/gie-project.helper";
 // services
 import type { TProject, TPartialProject } from "@plane/types";
 import { IssueLabelService, IssueService } from "@/services/issue";
@@ -168,9 +175,21 @@ export class ProjectStore implements IProjectStore {
         p.workspace === workspaceDetails.id &&
         (p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.identifier.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        shouldFilterProject(p, displayFilters, filters)
+        shouldFilterProject(p, displayFilters, filters) &&
+        // GIE: filtres sur les caractéristiques
+        shouldFilterProjectByCharacteristics(p, filters)
     );
-    workspaceProjects = orderProjects(workspaceProjects, displayFilters.order_by);
+    // GIE: tris sur les caractéristiques
+    if (displayFilters.order_by && isCharacteristicOrderBy(displayFilters.order_by)) {
+      const characteristics = this.rootStore.projectRoot.characteristics;
+      workspaceProjects = orderProjectsByCharacteristics(
+        workspaceProjects,
+        displayFilters.order_by,
+        characteristics.statusMap[workspaceDetails.slug],
+        characteristics.priorityMap[workspaceDetails.slug],
+        PROJECT_STATUS_GROUPS.map((group) => group.key)
+      );
+    } else workspaceProjects = orderProjects(workspaceProjects, displayFilters.order_by);
     return workspaceProjects.map((p) => p.id);
   }
 
