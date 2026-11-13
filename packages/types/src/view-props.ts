@@ -170,6 +170,8 @@ export interface IIssueDisplayProperties {
   link?: boolean;
   attachment_count?: boolean;
   estimate?: boolean;
+  estimated_effort?: boolean;
+  actual_effort?: boolean;
   created_on?: boolean;
   updated_on?: boolean;
   modules?: boolean;

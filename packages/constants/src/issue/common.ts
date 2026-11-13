@@ -151,6 +151,8 @@ export const ISSUE_DISPLAY_PROPERTIES_KEYS: (keyof IIssueDisplayProperties)[] = 
   "link",
   "attachment_count",
   "estimate",
+  "estimated_effort",
+  "actual_effort",
   "created_on",
   "updated_on",
   "modules",
@@ -206,6 +208,14 @@ export const ISSUE_DISPLAY_PROPERTIES: {
     key: "estimate",
     titleTranslationKey: "common.estimate",
   },
+  {
+    key: "estimated_effort",
+    titleTranslationKey: "common.estimated_effort",
+  },
+  {
+    key: "actual_effort",
+    titleTranslationKey: "common.actual_effort",
+  },
   { key: "modules", titleTranslationKey: "common.module" },
   { key: "cycle", titleTranslationKey: "common.cycle" },
 ];
@@ -220,6 +230,8 @@ export const SPREADSHEET_PROPERTY_LIST: (keyof IIssueDisplayProperties)[] = [
   "start_date",
   "due_date",
   "estimate",
+  "estimated_effort",
+  "actual_effort",
   "created_on",
   "updated_on",
   "link",
@@ -235,6 +247,8 @@ export const SPREADSHEET_PROPERTY_DETAILS: {
     descendingOrderKey: TIssueOrderByOptions;
     descendingOrderTitle: string;
     icon: string;
+    // GIE: colonne sans menu de tri
+    disableSorting?: boolean;
   };
 } = {
   assignee: {
@@ -268,6 +282,24 @@ export const SPREADSHEET_PROPERTY_DETAILS: {
     descendingOrderKey: "-estimate_point__key",
     descendingOrderTitle: "High",
     icon: "EstimatePropertyIcon",
+  },
+  estimated_effort: {
+    i18n_title: "common.estimated_effort",
+    ascendingOrderKey: "-created_at",
+    ascendingOrderTitle: "",
+    descendingOrderKey: "-created_at",
+    descendingOrderTitle: "",
+    icon: "Hourglass",
+    disableSorting: true,
+  },
+  actual_effort: {
+    i18n_title: "common.actual_effort",
+    ascendingOrderKey: "-created_at",
+    ascendingOrderTitle: "",
+    descendingOrderKey: "-created_at",
+    descendingOrderTitle: "",
+    icon: "Timer",
+    disableSorting: true,
   },
   labels: {
     i18n_title: "common.labels",

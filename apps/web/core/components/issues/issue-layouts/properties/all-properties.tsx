@@ -29,6 +29,8 @@ import { CycleDropdown } from "@/components/dropdowns/cycle";
 import { DateDropdown } from "@/components/dropdowns/date";
 import { DateRangeDropdown } from "@/components/dropdowns/date-range";
 import { EstimateDropdown } from "@/components/dropdowns/estimate";
+import { EffortDropdown } from "@/components/dropdowns/effort";
+import type { TEffortField } from "@/components/dropdowns/effort";
 import { MemberDropdown } from "@/components/dropdowns/member/dropdown";
 import { ModuleDropdown } from "@/components/dropdowns/module/dropdown";
 import { PriorityDropdown } from "@/components/dropdowns/priority";
@@ -159,6 +161,12 @@ export const IssueProperties = observer(function IssueProperties(props: IIssuePr
   const handleEstimate = async (value: string | undefined) => {
     if (updateIssue) await updateIssue(issue.project_id, issue.id, { estimate_point: value });
   };
+
+  // GIE: charges estimée / réalisée
+  const handleEffort = async (field: TEffortField, value: number | null) => {
+    if (updateIssue) await updateIssue(issue.project_id, issue.id, { [field]: value });
+  };
+  const isEffortEnabled = !!projectDetails?.is_effort_enabled;
 
   const workItemLink = generateWorkItemLink({
     workspaceSlug: workspaceSlug?.toString(),
@@ -393,6 +401,42 @@ export const IssueProperties = observer(function IssueProperties(props: IIssuePr
               value={issue.estimate_point ?? undefined}
               onChange={handleEstimate}
               projectId={issue.project_id}
+              disabled={isReadOnly}
+              buttonVariant="border-with-text"
+              renderByDefault={isMobile}
+              showTooltip
+            />
+          </div>
+        </WithDisplayPropertiesHOC>
+      )}
+
+      {/* GIE: estimated_effort */}
+      {isEffortEnabled && (
+        <WithDisplayPropertiesHOC displayProperties={displayProperties} displayPropertyKey="estimated_effort">
+          {/* oxlint-disable-next-line jsx_a11y/click-events-have-key-events oxlint-disable-next-line jsx_a11y/no-static-element-interactions */}
+          <div className="h-5" onFocus={handleEventPropagation} onClick={handleEventPropagation}>
+            <EffortDropdown
+              field="estimated_effort"
+              value={issue.estimated_effort}
+              onChange={(value) => handleEffort("estimated_effort", value)}
+              disabled={isReadOnly}
+              buttonVariant="border-with-text"
+              renderByDefault={isMobile}
+              showTooltip
+            />
+          </div>
+        </WithDisplayPropertiesHOC>
+      )}
+
+      {/* GIE: actual_effort */}
+      {isEffortEnabled && (
+        <WithDisplayPropertiesHOC displayProperties={displayProperties} displayPropertyKey="actual_effort">
+          {/* oxlint-disable-next-line jsx_a11y/click-events-have-key-events oxlint-disable-next-line jsx_a11y/no-static-element-interactions */}
+          <div className="h-5" onFocus={handleEventPropagation} onClick={handleEventPropagation}>
+            <EffortDropdown
+              field="actual_effort"
+              value={issue.actual_effort}
+              onChange={(value) => handleEffort("actual_effort", value)}
               disabled={isReadOnly}
               buttonVariant="border-with-text"
               renderByDefault={isMobile}

@@ -39,6 +39,8 @@ def get_default_properties():
         "link": True,
         "attachment_count": True,
         "estimate": True,
+        "estimated_effort": True,
+        "actual_effort": True,
         "created_on": True,
         "updated_on": True,
     }
@@ -77,6 +79,8 @@ def get_default_display_properties():
         "created_on": True,
         "due_date": True,
         "estimate": True,
+        "estimated_effort": True,
+        "actual_effort": True,
         "key": True,
         "labels": True,
         "link": True,
@@ -132,6 +136,13 @@ class Issue(ChangeTrackerMixin, ProjectBaseModel):
         related_name="issue_estimates",
         null=True,
         blank=True,
+    )
+    # GIE: charges en jours (saisie activée par projet via Project.is_effort_enabled)
+    estimated_effort = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0)]
+    )
+    actual_effort = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True, validators=[MinValueValidator(0)]
     )
     name = models.CharField(max_length=255, verbose_name="Issue Name")
     description_json = models.JSONField(blank=True, default=dict)

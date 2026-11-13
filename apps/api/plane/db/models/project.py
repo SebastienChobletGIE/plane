@@ -96,6 +96,8 @@ class Project(BaseModel):
     page_view = models.BooleanField(default=True)
     intake_view = models.BooleanField(default=False)
     is_time_tracking_enabled = models.BooleanField(default=False)
+    # GIE: active la saisie des charges estimée / réalisée
+    is_effort_enabled = models.BooleanField(default=False)
     is_issue_type_enabled = models.BooleanField(default=False)
     guest_view_all_features = models.BooleanField(default=False)
     cover_image = models.TextField(blank=True, null=True)

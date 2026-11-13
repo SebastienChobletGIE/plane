@@ -521,6 +521,12 @@
           }
         }
       }
+    },
+    "efforts": {
+      "title": "Charges",
+      "description": "Suivre la charge estimée et la charge réalisée (en jours) des work items de ce projet.",
+      "toggle_title": "Activer la saisie des charges",
+      "toggle_description": "Affiche les champs Charge estimée et Charge réalisée dans les vues et dans le panneau latéral des work items."
     }
   }
 }

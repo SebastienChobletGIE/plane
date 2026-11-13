@@ -10,7 +10,7 @@ import { extractInstruction } from "@atlaskit/pragmatic-drag-and-drop-hitbox/tre
 import { clone, isNil, pull, uniq, concat } from "lodash-es";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import type { FC } from "react";
-import { CalendarDays, LayersIcon, Paperclip } from "lucide-react";
+import { CalendarDays, Hourglass, LayersIcon, Paperclip, Timer } from "lucide-react";
 // plane types
 import { EIconSize, ISSUE_PRIORITIES, STATE_GROUPS } from "@plane/constants";
 import { Logo } from "@plane/propel/emoji-icon-picker";
@@ -62,6 +62,8 @@ import {
   SpreadsheetCreatedOnColumn,
   SpreadsheetDueDateColumn,
   SpreadsheetEstimateColumn,
+  SpreadsheetEstimatedEffortColumn,
+  SpreadsheetActualEffortColumn,
   SpreadsheetLabelColumn,
   SpreadsheetModuleColumn,
   SpreadsheetCycleColumn,
@@ -844,6 +846,8 @@ export const SpreadSheetPropertyIconMap: Record<string, FC<ISvgIcons>> = {
   Link2: LinkIcon,
   Paperclip: Paperclip,
   LayersIcon: LayersIcon,
+  Hourglass: Hourglass,
+  Timer: Timer,
 };
 
 export const SPREADSHEET_COLUMNS: { [key in keyof IIssueDisplayProperties]: TSpreadsheetColumn } = {
@@ -851,6 +855,8 @@ export const SPREADSHEET_COLUMNS: { [key in keyof IIssueDisplayProperties]: TSpr
   created_on: SpreadsheetCreatedOnColumn,
   due_date: SpreadsheetDueDateColumn,
   estimate: SpreadsheetEstimateColumn,
+  estimated_effort: SpreadsheetEstimatedEffortColumn,
+  actual_effort: SpreadsheetActualEffortColumn,
   labels: SpreadsheetLabelColumn,
   modules: SpreadsheetModuleColumn,
   cycle: SpreadsheetCycleColumn,

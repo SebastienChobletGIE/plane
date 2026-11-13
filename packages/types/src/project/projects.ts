@@ -31,6 +31,8 @@ export interface IPartialProject {
   page_view: boolean;
   inbox_view: boolean;
   guest_view_all_features?: boolean;
+  // GIE: saisie des charges estimée / réalisée
+  is_effort_enabled?: boolean;
   project_lead?: IUserLite | string | null;
   network?: number;
   // Timestamps

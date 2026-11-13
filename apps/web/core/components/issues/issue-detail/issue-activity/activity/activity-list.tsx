@@ -19,6 +19,7 @@ import {
   IssueAssigneeActivity,
   IssuePriorityActivity,
   IssueEstimateActivity,
+  IssueEffortActivity,
   IssueParentActivity,
   IssueRelationActivity,
   IssueStartDateActivity,
@@ -68,6 +69,10 @@ export const IssueActivityItem = observer(function IssueActivityItem(props: TIss
     case "estimate_categories":
     case "estimate_point" /* This case is to handle all the older recorded activities for estimates. Field changed from  "estimate_point" -> `estimate_${estimate_type}`*/:
       return <IssueEstimateActivity {...componentDefaultProps} showIssue={false} />;
+    // GIE: charges
+    case "estimated_effort":
+    case "actual_effort":
+      return <IssueEffortActivity {...componentDefaultProps} showIssue={false} />;
     case "parent":
       return <IssueParentActivity {...componentDefaultProps} showIssue={false} />;
     case activityRelations.find((field) => field === activityField):
