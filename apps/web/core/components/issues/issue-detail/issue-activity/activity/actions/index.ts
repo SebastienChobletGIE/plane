@@ -11,6 +11,7 @@ export * from "./state";
 export * from "./assignee";
 export * from "./priority";
 export * from "./estimate";
+export * from "./effort";
 export * from "./parent";
 export * from "./relation";
 export * from "./start_date";

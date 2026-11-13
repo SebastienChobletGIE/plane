@@ -717,7 +717,16 @@
     "developer": "Developer",
     "work_structure": "Work structure",
     "execution": "Execution",
-    "administration": "Administration"
+    "administration": "Administration",
+    "estimated_effort": "Charge estimée",
+    "actual_effort": "Charge réalisée",
+    "efforts": "Charges",
+    "effort_unit": "J",
+    "effort_invalid": "Saisissez un nombre positif (ex. 2,5)",
+    "effort_activity_set": "a défini la {field} à",
+    "effort_activity_previous": "(auparavant {value})",
+    "effort_activity_removed": "a supprimé la {field}",
+    "effort_activity_for": "pour"
   },
   "chart": {
     "x_axis": "Axe X",

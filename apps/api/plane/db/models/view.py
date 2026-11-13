@@ -44,6 +44,8 @@ def get_default_display_properties():
         "created_on": True,
         "due_date": True,
         "estimate": True,
+        "estimated_effort": True,
+        "actual_effort": True,
         "key": True,
         "labels": True,
         "link": True,

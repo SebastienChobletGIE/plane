@@ -717,7 +717,16 @@
     "developer": "Developer",
     "work_structure": "Work structure",
     "execution": "Execution",
-    "administration": "Administration"
+    "administration": "Administration",
+    "estimated_effort": "Estimated effort",
+    "actual_effort": "Actual effort",
+    "efforts": "Effort",
+    "effort_unit": "J",
+    "effort_invalid": "Enter a positive number (e.g. 2.5)",
+    "effort_activity_set": "set the {field} to",
+    "effort_activity_previous": "(previously {value})",
+    "effort_activity_removed": "removed the {field}",
+    "effort_activity_for": "for"
   },
   "chart": {
     "x_axis": "エックス アクシス",

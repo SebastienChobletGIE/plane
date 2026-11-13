@@ -4,6 +4,7 @@
 
 # Python imports
 import json
+from decimal import Decimal, InvalidOperation
 
 
 # Third Party imports
@@ -475,6 +476,72 @@ def track_estimate_points(
         )
 
 
+def _effort_to_str(value):
+    """Normalise une charge (str, int, float, Decimal ou None) en texte comparable, ex. '2.5'."""
+    if value is None or value == "":
+        return None
+    try:
+        normalized = Decimal(str(value)).quantize(Decimal("0.01")).normalize()
+    except (InvalidOperation, ValueError):
+        return str(value)
+    return format(normalized, "f")
+
+
+def _track_effort(
+    field, requested_data, current_instance, issue_id, project_id, workspace_id, actor_id, issue_activities, epoch
+):
+    old_value = _effort_to_str(current_instance.get(field))
+    new_value = _effort_to_str(requested_data.get(field))
+    if old_value == new_value:
+        return
+    issue_activities.append(
+        IssueActivity(
+            issue_id=issue_id,
+            actor_id=actor_id,
+            verb="removed" if new_value is None else "updated",
+            old_value=old_value,
+            new_value=new_value,
+            field=field,
+            project_id=project_id,
+            workspace_id=workspace_id,
+            comment=f"updated the {field} to ",
+            epoch=epoch,
+        )
+    )
+
+
+def track_estimated_effort(
+    requested_data, current_instance, issue_id, project_id, workspace_id, actor_id, issue_activities, epoch
+):
+    _track_effort(
+        "estimated_effort",
+        requested_data,
+        current_instance,
+        issue_id,
+        project_id,
+        workspace_id,
+        actor_id,
+        issue_activities,
+        epoch,
+    )
+
+
+def track_actual_effort(
+    requested_data, current_instance, issue_id, project_id, workspace_id, actor_id, issue_activities, epoch
+):
+    _track_effort(
+        "actual_effort",
+        requested_data,
+        current_instance,
+        issue_id,
+        project_id,
+        workspace_id,
+        actor_id,
+        issue_activities,
+        epoch,
+    )
+
+
 def track_archive_at(
     requested_data,
     current_instance,
@@ -612,6 +679,8 @@ def update_issue_activity(
         "label_ids": track_labels,
         "assignee_ids": track_assignees,
         "estimate_point": track_estimate_points,
+        "estimated_effort": track_estimated_effort,
+        "actual_effort": track_actual_effort,
         "archived_at": track_archive_at,
         "closed_to": track_closed_to,
         # External endpoint keys

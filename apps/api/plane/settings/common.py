@@ -148,6 +148,8 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "plane.authentication.adapter.exception.auth_exception_handler",
     # Preserve original Django URL parameter names (pk) instead of converting to 'id'
     "SCHEMA_COERCE_PATH_PK": False,
+    # GIE: renvoyer les charges (DecimalField) en nombres JSON, comme les .values()
+    "COERCE_DECIMAL_TO_STRING": False,
 }
 
 # API key throttle rate (DRF SimpleRateThrottle format, e.g. "60/minute")

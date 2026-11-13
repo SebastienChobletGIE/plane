@@ -521,6 +521,12 @@
           }
         }
       }
+    },
+    "efforts": {
+      "title": "Effort",
+      "description": "Track estimated and actual effort (in days) on the work items of this project.",
+      "toggle_title": "Enable effort entry",
+      "toggle_description": "Show the Estimated effort and Actual effort fields in views and in the work item side panel."
     }
   }
 }

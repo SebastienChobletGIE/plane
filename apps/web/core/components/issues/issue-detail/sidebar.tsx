@@ -4,6 +4,7 @@
  * See the LICENSE file for details.
  */
 
+import { Hourglass as EffortHourglassIcon, Timer as EffortTimerIcon } from "lucide-react";
 import { observer } from "mobx-react";
 // i18n
 import { useTranslation } from "@plane/i18n";
@@ -25,6 +26,7 @@ import { cn, getDate, renderFormattedPayloadDate, shouldHighlightIssueDueDate } 
 // components
 import { DateDropdown } from "@/components/dropdowns/date";
 import { EstimateDropdown } from "@/components/dropdowns/estimate";
+import { EffortDropdown } from "@/components/dropdowns/effort";
 import { ButtonAvatars } from "@/components/dropdowns/member/avatar";
 import { MemberDropdown } from "@/components/dropdowns/member/dropdown";
 import { PriorityDropdown } from "@/components/dropdowns/priority";
@@ -199,6 +201,44 @@ export const IssueDetailsSidebar = observer(function IssueDetailsSidebar(props: 
                   hideIcon
                   dropdownArrow
                   dropdownArrowClassName="h-3.5 w-3.5 hidden group-hover:inline"
+                />
+              </SidebarPropertyListItem>
+            )}
+
+            {/* GIE: estimated_effort */}
+            {projectDetails?.is_effort_enabled && (
+              <SidebarPropertyListItem icon={EffortHourglassIcon} label={t("common.estimated_effort")}>
+                <EffortDropdown
+                  field="estimated_effort"
+                  value={issue.estimated_effort}
+                  onChange={(val) =>
+                    issueOperations.update(workspaceSlug, projectId, issueId, { estimated_effort: val })
+                  }
+                  disabled={!isEditable}
+                  buttonVariant="transparent-with-text"
+                  className="group w-full grow"
+                  buttonContainerClassName="w-full text-left h-7.5"
+                  buttonClassName={`text-body-xs-regular ${issue?.estimated_effort !== null && issue?.estimated_effort !== undefined ? "" : "text-placeholder"}`}
+                  placeholder={t("common.none")}
+                  hideIcon
+                />
+              </SidebarPropertyListItem>
+            )}
+
+            {/* GIE: actual_effort */}
+            {projectDetails?.is_effort_enabled && (
+              <SidebarPropertyListItem icon={EffortTimerIcon} label={t("common.actual_effort")}>
+                <EffortDropdown
+                  field="actual_effort"
+                  value={issue.actual_effort}
+                  onChange={(val) => issueOperations.update(workspaceSlug, projectId, issueId, { actual_effort: val })}
+                  disabled={!isEditable}
+                  buttonVariant="transparent-with-text"
+                  className="group w-full grow"
+                  buttonContainerClassName="w-full text-left h-7.5"
+                  buttonClassName={`text-body-xs-regular ${issue?.actual_effort !== null && issue?.actual_effort !== undefined ? "" : "text-placeholder"}`}
+                  placeholder={t("common.none")}
+                  hideIcon
                 />
               </SidebarPropertyListItem>
             )}
